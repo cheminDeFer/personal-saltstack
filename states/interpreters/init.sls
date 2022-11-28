@@ -13,6 +13,15 @@ symlink_{{pyscript}}:
     - user: 'hsyn'
     - makedirs: True
 {% endfor %}
-#bootstrap_virtualenv:
-#  cmd.run:
-#    - name: 'curl --silent --location --output /tmp/virtualenv.pyz https://bootstrap.pypa.io/virtualenv.pyz'
+# fixme should unless option be more clever?
+bootstrap_virtualenv:
+  cmd.script:
+    - name: 'installoptvenv'
+    - source: 'salt://states/interpreters/installoptvenv'
+    - env:
+      - venv: "/home/hsyn/opt/venv"
+    - require:
+      - install_python
+    - unless: test -d "/home/hsyn/opt/venv"
+    - runas: 'hsyn'
+

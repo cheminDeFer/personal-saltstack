@@ -24,4 +24,3 @@ bootstrap_virtualenv:
       - install_python
     - unless: test -d "/home/hsyn/opt/venv"
     - runas: 'hsyn'
-
